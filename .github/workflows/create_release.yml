@@ -26,7 +26,7 @@ jobs:
      - uses: actions/upload-artifact@v2
        with:
         name: BotApp
-        path: ${{ github.workspace }}\botapp\publish   
+        path: ${{ github.workspace }}\botapp\
 
   upload_builds:
     needs: [build_botapp]
