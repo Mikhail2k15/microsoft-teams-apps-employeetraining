@@ -136,14 +136,14 @@
       "metadata": {
         "description": "The URL to the GitHub repository to deploy."
       },
-      "defaultValue": "https://github.com/OfficeDev/microsoft-teams-apps-employeetraining.git"
+      "defaultValue": "https://github.com/OfficeDev/microsoft-teams-apps-employeetraining"
     },
-    "gitBranch": {
+    "releaseTag": {
       "type": "string",
       "metadata": {
-        "description": "The branch of the GitHub repository to deploy."
+        "description": "The release to deploy."
       },
-      "defaultValue": "main"
+      "defaultValue": "latest"
     }
   },
   "variables": {
@@ -174,7 +174,8 @@
     "skuFamily": "[if(equals(parameters('sku'), 'Shared'), 'D', take(parameters('sku'), 1))]",
     "useFrontDoor": "[equals(parameters('customDomainOption'), 'Azure Front Door')]",
     "frontDoorName": "[parameters('baseResourceName')]",
-    "frontDoorDomain": "[toLower(concat(variables('frontDoorName'), '.azurefd.net'))]"
+    "frontDoorDomain": "[toLower(concat(variables('frontDoorName'), '.azurefd.net'))]",
+    "botAppPackageURL": "[concat(parameters('gitRepoUrl'), '/releases/', parameters('releaseTag'), '/download/botAppPackage.zip')]"
   },
   "resources": [
     {
@@ -340,17 +341,15 @@
       },
       "resources": [
         {
-          "apiVersion": "2016-08-01",
-          "name": "web",
-          "type": "sourcecontrols",
-          "condition": "[not(empty(parameters('gitRepoUrl')))]",
+          "name": "MSDeploy",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2018-11-01",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', variables('botAppName'))]"
+            "[concat('Microsoft.Web/sites/', variables('botAppName'))]"
           ],
           "properties": {
-            "RepoUrl": "[parameters('gitRepoUrl')]",
-            "branch": "[parameters('gitBranch')]",
-            "IsManualIntegration": true
+            "packageUri": "[variables('botAppPackageURL')]"
           }
         }
       ],
