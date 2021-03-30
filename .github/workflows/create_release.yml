@@ -7,7 +7,8 @@ on:
         description: 'Release Name'
         required: true
 env:  
-  botapp_path: ".\\Source\\Microsoft.Teams.Apps.EmployeeTraining\\Microsoft.Teams.Apps.EmployeeTraining.csproj"      
+  botapp_path: ".\\Source\\Microsoft.Teams.Apps.EmployeeTraining\\Microsoft.Teams.Apps.EmployeeTraining.csproj"
+  CI: ""
 jobs:
   build_botapp:
     runs-on: windows-latest
