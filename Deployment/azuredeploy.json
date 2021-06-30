@@ -128,8 +128,25 @@
     },
     "defaultCulture": {
       "type": "string",
+      "allowedValues": [
+        "en",
+        "ar",
+        "de",
+        "es",
+        "fr",
+        "he",
+        "ja",
+        "ko",
+        "pt-BR",
+        "ru",
+        "zh-CN",
+        "zh-TW"
+      ],
       "minLength": 1,
-      "defaultValue": "en-US"
+      "defaultValue": "en",
+      "metadata": {
+        "description": "Default localization for app."
+      }
     },
     "gitRepoUrl": {
       "type": "string",
@@ -276,7 +293,7 @@
             },
             {
               "name": "i18n:SupportedCultures",
-              "value": "en-US"
+              "value": "en,ar,de,es,fr,he,ja,ko,pt-BR,ru,zh-CN,zh-TW"
             },
             {
               "name": "WEBSITE_NODE_DEFAULT_VERSION",
@@ -329,6 +346,10 @@
             {
               "name": "KeyVaultStrings:SearchServiceQueryApiKey",
               "value": "SearchServiceQueryApiKey--SecretKey"
+            },
+            {
+              "name": "DeploymentType:IsGCCHybrid",
+              "value": false
             }
           ],
           "cors": {
